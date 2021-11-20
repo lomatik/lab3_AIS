@@ -93,7 +93,7 @@ def train_network(network, train, l_rate, n_epoch, n_outputs):
         for row in train:
             outputs = forward_propagate(network, row)
             expected = [0 for i in range(n_outputs)]
-            expected[row[-1]] = 1
+            # expected[row[-1]] = 1
             sum_error += sum([(expected[i] - outputs[i]) ** 2
                               for i in range(len(expected))])
             backward_propagate_error(network, expected)
@@ -109,3 +109,29 @@ def predict(network, row):
 
 testcsv = pd.read_csv('house-prices-advanced-regression-techniques/test.csv');
 traincsv = pd.read_csv('house-prices-advanced-regression-techniques/train.csv');
+
+train_np = traincsv.select_dtypes(include=[np.number]).interpolate().dropna()
+train_np = train_np.to_numpy()
+train_np = train_np.astype(int)
+
+n_inputs = len(train_np[0]) - 1
+n_outputs = len(set([row[-1] for row in traincsv]))
+
+print('Count input:' + str(n_inputs))
+print('Count output:' + str(n_outputs))
+
+network = initialize_network(n_inputs, 2, n_outputs)
+train_network(network, train_np, 0.5, 15, n_outputs)
+for layer in network:
+    print(layer)
+
+print()
+
+test_np = testcsv.select_dtypes(include=[np.number]).interpolate().dropna()
+
+test_pr = predict(network, [row[-1] for row in test_np.to_numpy().astype(int)])
+
+print(test_pr)
+
+#Second Part
+
