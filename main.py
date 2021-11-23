@@ -1,22 +1,12 @@
 import pandas as pd
 import numpy as np
+import os
 from keras.datasets import imdb
 from numpy import exp
 from numpy.random import random
 
 (train_data, train_labels), (test_data, test_labels) = imdb.load_data(
     num_words=10000)
-
-
-def vectorize_sequences(sequences, dimension=10000):
-    results = np.zeros((len(sequences), dimension))
-    for i, sequence in enumerate(sequences):
-        results[i, sequence] = 1.
-    return results
-
-
-x_train = vectorize_sequences(train_data)
-x_test = vectorize_sequences(test_data)
 
 
 def initialize_network(n_inputs, n_hidden, n_outputs):
@@ -133,5 +123,5 @@ test_pr = predict(network, [row[-1] for row in test_np.to_numpy().astype(int)])
 
 print(test_pr)
 
-#Second Part
-
+# Second Part
+os.system('hopfieldnetwork-ui')
