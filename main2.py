@@ -4,6 +4,7 @@ from PIL import Image
 import os
 import re
 
+
 # convert matrix to a vector
 def mat2vec(x):
     m = x.shape[0] * x.shape[1]
@@ -15,6 +16,7 @@ def mat2vec(x):
             tmp1[c] = x[i, j]
             c += 1
     return tmp1
+
 
 # Create Weight matrix for a single image
 def create_W(x):
@@ -32,6 +34,7 @@ def create_W(x):
                     w[j, i] = w[i, j]
     return w
 
+
 # Read Image file and convert it to Numpy array
 def readImg2array(file, size, threshold=145):
     pilIN = Image.open(file).convert(mode="L")
@@ -43,6 +46,7 @@ def readImg2array(file, size, threshold=145):
     x[x == 0] = -1
     return x
 
+
 # Convert Numpy array to Image file like Jpeg
 def array2img(data, outFile=None):
     # data is 1 or -1 matrix
@@ -53,6 +57,7 @@ def array2img(data, outFile=None):
     if outFile is not None:
         img.save(outFile)
     return img
+
 
 # Update
 def update(w, y_vec, theta=0.5, time=100):
@@ -67,6 +72,7 @@ def update(w, y_vec, theta=0.5, time=100):
             y_vec[i] = -1
 
     return y_vec
+
 
 # The following is training pipeline
 # Initial setting
@@ -111,6 +117,7 @@ def hopfield(train_files, test_files, theta=0.5, time=1000, size=(100, 100), thr
             after_img = array2img(y_vec_after, outFile=None)
             after_img.show()
         counter += 1
+
 
 # Main
 # First, you can create a list of input file path
