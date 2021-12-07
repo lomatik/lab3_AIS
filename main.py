@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import os
 from keras.datasets import imdb
 from numpy import exp
 from numpy.random import random
@@ -97,8 +96,8 @@ def predict(network, row):
     return outputs.index(max(outputs))
 
 
-testcsv = pd.read_csv('house-prices-advanced-regression-techniques/test.csv');
-traincsv = pd.read_csv('house-prices-advanced-regression-techniques/train.csv');
+testcsv = pd.read_csv('house-prices-advanced-regression-techniques/test.csv')
+traincsv = pd.read_csv('house-prices-advanced-regression-techniques/train.csv')
 
 train_np = traincsv.select_dtypes(include=[np.number]).interpolate().dropna()
 train_np = train_np.to_numpy()
@@ -124,4 +123,4 @@ test_pr = predict(network, [row[-1] for row in test_np.to_numpy().astype(int)])
 print(test_pr)
 
 # Second Part
-os.system('hopfieldnetwork-ui')
+#os.system('hopfieldnetwork-ui')
